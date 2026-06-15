@@ -10,33 +10,32 @@
   "costBreakdown": {
     "categories": [
       {
-        "label": "01  DESIGN SERVICES",
+        "label": "DESIGN SERVICES",
         "items": [
           {
             "label": "Plan Printing & Photocopying",
             "type": "detail",
             "budget": 1000,
             "prevInv": 0,
-            "curInv": 100000,
-            "totInv": 100000,
-            "tbc": 0,
-            "ob": -99000,
+            "curInv": 0,
+            "totInv": 0,
+            "tbc": 1000,
+            "ob": 0,
             "co": 0
           }
         ],
         "subtotal": {
           "label": "DESIGN SERVICES — Subtotal",
           "budget": 1000,
-          "prevInv": 0,
-          "curInv": 100000,
-          "totInv": 100000,
-          "tbc": 0,
-          "ob": -99000,
+          "curInv": 0,
+          "totInv": 0,
+          "tbc": 1000,
+          "ob": 0,
           "co": 0
         }
       },
       {
-        "label": "02  PERMITS & HOME WARRANTY",
+        "label": "PERMITS & HOME WARRANTY",
         "items": [
           {
             "label": "Building Permit Fees",
@@ -86,7 +85,6 @@
         "subtotal": {
           "label": "PERMITS & HOME WARRANTY — Subtotal",
           "budget": 31040,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 31040,
@@ -95,7 +93,7 @@
         }
       },
       {
-        "label": "03  ENGINEERING FEES",
+        "label": "ENGINEERING FEES",
         "items": [
           {
             "label": "Energy Advisor",
@@ -156,7 +154,6 @@
         "subtotal": {
           "label": "ENGINEERING FEES — Subtotal",
           "budget": 23500,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 23500,
@@ -165,7 +162,7 @@
         }
       },
       {
-        "label": "04  FOUNDATION",
+        "label": "FOUNDATION",
         "items": [
           {
             "label": "Footings & Foundation Material",
@@ -302,17 +299,16 @@
         ],
         "subtotal": {
           "label": "FOUNDATION — Subtotal",
-          "budget": 139456.84999999998,
-          "prevInv": 0,
+          "budget": 139456.85,
           "curInv": 0,
           "totInv": 0,
-          "tbc": 139456.84999999998,
+          "tbc": 139456.85,
           "ob": 0,
           "co": 0
         }
       },
       {
-        "label": "05  FRAMING",
+        "label": "FRAMING",
         "items": [
           {
             "label": "Framing Materials",
@@ -427,17 +423,16 @@
         ],
         "subtotal": {
           "label": "FRAMING — Subtotal",
-          "budget": 233053.83000000002,
-          "prevInv": 0,
+          "budget": 233053.83,
           "curInv": 0,
           "totInv": 0,
-          "tbc": 233053.83000000002,
+          "tbc": 233053.83,
           "ob": 0,
           "co": 0
         }
       },
       {
-        "label": "06  WINDOWS & DOORS",
+        "label": "WINDOWS & DOORS",
         "items": [
           {
             "label": "Windows & Sliding Doors",
@@ -519,17 +514,16 @@
         ],
         "subtotal": {
           "label": "WINDOWS & DOORS — Subtotal",
-          "budget": 89660.68000000001,
-          "prevInv": 0,
+          "budget": 89660.68,
           "curInv": 0,
           "totInv": 0,
-          "tbc": 89660.68000000001,
+          "tbc": 89660.68,
           "ob": 0,
           "co": 0
         }
       },
       {
-        "label": "07  ELECTRICAL",
+        "label": "ELECTRICAL",
         "items": [
           {
             "label": "Electrical Rough In",
@@ -590,7 +584,6 @@
         "subtotal": {
           "label": "ELECTRICAL — Subtotal",
           "budget": 88145,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 88145,
@@ -599,7 +592,7 @@
         }
       },
       {
-        "label": "08  PLUMBING",
+        "label": "PLUMBING",
         "items": [
           {
             "label": "Plumbing Rough In & Finish",
@@ -638,7 +631,6 @@
         "subtotal": {
           "label": "PLUMBING — Subtotal",
           "budget": 60340,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 60340,
@@ -647,7 +639,7 @@
         }
       },
       {
-        "label": "09  HVAC",
+        "label": "HVAC",
         "items": [
           {
             "label": "Mechanical Rough In",
@@ -708,7 +700,6 @@
         "subtotal": {
           "label": "HVAC — Subtotal",
           "budget": 61616,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 61616,
@@ -717,7 +708,7 @@
         }
       },
       {
-        "label": "10  ROOFING",
+        "label": "ROOFING",
         "items": [
           {
             "label": "Roofing Supply & Install",
@@ -734,7 +725,6 @@
         "subtotal": {
           "label": "ROOFING — Subtotal",
           "budget": 49900,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 49900,
@@ -743,7 +733,7 @@
         }
       },
       {
-        "label": "11  INSULATION & DRYWALL",
+        "label": "INSULATION & DRYWALL",
         "items": [
           {
             "label": "Insulation",
@@ -771,7 +761,6 @@
         "subtotal": {
           "label": "INSULATION & DRYWALL — Subtotal",
           "budget": 86020,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 86020,
@@ -780,7 +769,7 @@
         }
       },
       {
-        "label": "12  EXTERIOR VENEER",
+        "label": "EXTERIOR VENEER",
         "items": [
           {
             "label": "Siding Labour",
@@ -852,7 +841,6 @@
         "subtotal": {
           "label": "EXTERIOR VENEER — Subtotal",
           "budget": 70795.18,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 70795.18,
@@ -861,7 +849,7 @@
         }
       },
       {
-        "label": "13  MASONRY",
+        "label": "MASONRY",
         "items": [
           {
             "label": "Exterior Masonry – Supply & Install",
@@ -900,7 +888,6 @@
         "subtotal": {
           "label": "MASONRY — Subtotal",
           "budget": 66830,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 66830,
@@ -909,7 +896,7 @@
         }
       },
       {
-        "label": "14  CABINETRY & COUNTERTOPS",
+        "label": "CABINETRY & COUNTERTOPS",
         "items": [
           {
             "label": "Cabinetry Supply & Install – Main and Suite",
@@ -937,7 +924,6 @@
         "subtotal": {
           "label": "CABINETRY & COUNTERTOPS — Subtotal",
           "budget": 137510,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 137510,
@@ -946,7 +932,7 @@
         }
       },
       {
-        "label": "15  INTERIOR FINISHING",
+        "label": "INTERIOR FINISHING",
         "items": [
           {
             "label": "Finishing Carpentry",
@@ -1051,7 +1037,6 @@
         "subtotal": {
           "label": "INTERIOR FINISHING — Subtotal",
           "budget": 66541.55,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 66541.55,
@@ -1060,7 +1045,7 @@
         }
       },
       {
-        "label": "16  WOOD FLOOR COVERINGS",
+        "label": "WOOD FLOOR COVERINGS",
         "items": [
           {
             "label": "Flooring Hardwood Material",
@@ -1131,17 +1116,16 @@
         ],
         "subtotal": {
           "label": "WOOD FLOOR COVERINGS — Subtotal",
-          "budget": 43064.159999999996,
-          "prevInv": 0,
+          "budget": 43064.16,
           "curInv": 0,
           "totInv": 0,
-          "tbc": 43064.159999999996,
+          "tbc": 43064.16,
           "ob": 0,
           "co": 0
         }
       },
       {
-        "label": "17  TILE",
+        "label": "TILE",
         "items": [
           {
             "label": "Floor Tile Material",
@@ -1169,7 +1153,6 @@
         "subtotal": {
           "label": "TILE — Subtotal",
           "budget": 45550.46,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 45550.46,
@@ -1178,7 +1161,7 @@
         }
       },
       {
-        "label": "18  PAINT",
+        "label": "PAINT",
         "items": [
           {
             "label": "Interior Walls, Ceiling, Doors, Trim & Staining",
@@ -1239,7 +1222,6 @@
         "subtotal": {
           "label": "PAINT — Subtotal",
           "budget": 57520,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 57520,
@@ -1248,7 +1230,7 @@
         }
       },
       {
-        "label": "19  EXTERIOR HARDSCAPE",
+        "label": "EXTERIOR HARDSCAPE",
         "items": [
           {
             "label": "Patio / Drives / Walkways – Concrete & Material",
@@ -1287,7 +1269,6 @@
         "subtotal": {
           "label": "EXTERIOR HARDSCAPE — Subtotal",
           "budget": 39307.5,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 39307.5,
@@ -1296,7 +1277,7 @@
         }
       },
       {
-        "label": "20  CONSTRUCTION CLEAN UP",
+        "label": "CONSTRUCTION CLEAN UP",
         "items": [
           {
             "label": "Clean Up Labour",
@@ -1346,7 +1327,6 @@
         "subtotal": {
           "label": "CONSTRUCTION CLEAN UP — Subtotal",
           "budget": 15200,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 15200,
@@ -1355,7 +1335,7 @@
         }
       },
       {
-        "label": "21  JOBSITE FACILITIES",
+        "label": "JOBSITE FACILITIES",
         "items": [
           {
             "label": "Portable Washroom",
@@ -1405,7 +1385,6 @@
         "subtotal": {
           "label": "JOBSITE FACILITIES — Subtotal",
           "budget": 10000,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 10000,
@@ -1414,7 +1393,7 @@
         }
       },
       {
-        "label": "22  PROJECT MANAGEMENT",
+        "label": "PROJECT MANAGEMENT",
         "items": [
           {
             "label": "Management & Supervision",
@@ -1442,7 +1421,6 @@
         "subtotal": {
           "label": "PROJECT MANAGEMENT — Subtotal",
           "budget": 53120,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 53120,
@@ -1451,7 +1429,7 @@
         }
       },
       {
-        "label": "23  SEPTIC",
+        "label": "SEPTIC",
         "items": [
           {
             "label": "Septic Labour & Materials",
@@ -1468,7 +1446,6 @@
         "subtotal": {
           "label": "MISCELLANEOUS — Subtotal",
           "budget": 25000,
-          "prevInv": 0,
           "curInv": 0,
           "totInv": 0,
           "tbc": 25000,
@@ -1477,27 +1454,37 @@
         }
       },
       {
-        "label": "24  COMPANY OVERHEAD",
+        "label": "COMPANY OVERHEAD",
         "items": [
           {
             "label": "Company Overhead",
             "type": "detail",
-            "budget": 13596.0648,
+            "budget": 13596.06,
             "prevInv": 0,
             "curInv": 0,
             "totInv": 0,
-            "tbc": 13596.0648,
+            "tbc": 13596.06,
+            "ob": 0,
+            "co": 0
+          },
+          {
+            "label": "COLOUR LEGEND",
+            "type": "detail",
+            "budget": 0,
+            "prevInv": 0,
+            "curInv": 0,
+            "totInv": 0,
+            "tbc": 0,
             "ob": 0,
             "co": 0
           }
         ],
         "subtotal": {
           "label": "COMPANY OVERHEAD — Subtotal",
-          "budget": 13596.0648,
-          "prevInv": 0,
+          "budget": 13596.06,
           "curInv": 0,
           "totInv": 0,
-          "tbc": 13596.0648,
+          "tbc": 13596.06,
           "ob": 0,
           "co": 0
         }
@@ -1506,42 +1493,38 @@
     "totals": [
       {
         "label": "Project Subtotal",
-        "budget": 1507767.2748,
-        "prevInv": 0,
-        "curInv": 100000,
-        "totInv": 100000,
-        "tbc": 1506767.2748,
-        "ob": -99000,
+        "budget": 1507767.27,
+        "curInv": 0,
+        "totInv": 0,
+        "tbc": 1507767.27,
+        "ob": 0,
         "co": 0
       },
       {
         "label": "10% Mark-up",
-        "budget": 144744.72748,
-        "prevInv": 0,
-        "curInv": 10000,
-        "totInv": 10000,
-        "tbc": 144644.72748,
-        "ob": -9900,
+        "budget": 144744.73,
+        "curInv": 0,
+        "totInv": 0,
+        "tbc": 144744.73,
+        "ob": 0,
         "co": 0
       },
       {
         "label": "GST (5%)",
-        "budget": 82625.60011400002,
-        "prevInv": 0,
-        "curInv": 5500,
-        "totInv": 5500,
-        "tbc": 82570.60011400002,
-        "ob": -5445,
+        "budget": 82625.6,
+        "curInv": 0,
+        "totInv": 0,
+        "tbc": 82625.6,
+        "ob": 0,
         "co": 0
       },
       {
         "label": "PROJECT TOTAL",
-        "budget": 1735137.6023940002,
-        "prevInv": 0,
-        "curInv": 115500,
-        "totInv": 115500,
-        "tbc": 1733982.6023940002,
-        "ob": -114345,
+        "budget": 1735137.6,
+        "curInv": 0,
+        "totInv": 0,
+        "tbc": 1735137.6,
+        "ob": 0,
         "co": 0
       }
     ]
@@ -3067,6 +3050,6 @@
     "dateTo": "",
     "jobId": "dorman",
     "jobRepo": "Dorman",
-    "syncedAt": "2026-06-15T23:24:56.139Z"
+    "syncedAt": "2026-06-15T23:42:32.282Z"
   }
 }
