@@ -146,6 +146,7 @@ tr.cat-row{cursor:pointer}
 tr.cat-row td{background:#fff;color:var(--navy);font-weight:700;font-size:14px;padding:10px 14px;border-bottom:1px solid var(--border)}
 tr.cat-row:not(.expanded) td.num{font-size:13px;font-weight:600;color:var(--navy)}
 tr.cat-row:not(.expanded) td.num.blue{color:#1e6fd9;font-size:13px;font-weight:700}
+tr.cat-row:not(.expanded) td.num.bud{color:var(--navy);font-size:13px;font-weight:700}
 tr.cat-row:not(.expanded) td.num.green{color:#15803d;font-size:13px;font-weight:700}
 tr.cat-row:not(.expanded) td.num.red{color:#f75151;font-size:13px;font-weight:700}
 tr.cat-row:not(.expanded) td.num.gold{color:#c9970a;font-size:13px;font-weight:700}
@@ -156,6 +157,7 @@ tr.detail-row{display:none}
 tr.detail-row td{background:#f8faff;font-size:12px;color:#000;font-weight:500;padding:8px 14px;border-bottom:1px solid var(--border)}
 tr.detail-row td:first-child{padding-left:36px}
 tr.detail-row td.num{text-align:right}
+tr.detail-row td.num.bud{color:#0a1628}
 tr.detail-row td.num.blue{color:#1e6fd9}
 tr.detail-row td.num.green{color:#15803d}
 tr.detail-row td.num.red{color:#f75151}
@@ -499,16 +501,16 @@ function exportPDF(expanded,tab){
   // ── COLUMN DEFINITIONS ──
   var cols;
   if(_activeTab==='cost'){
-    cols=[
-      {label:'Category',        w:70, align:'left'},
-      {label:'Budget',          w:26, align:'right'},
-      {label:'Prev. Invoiced',  w:26, align:'right'},
-      {label:'Current Invoice', w:26, align:'right'},
-      {label:'Total Invoiced',  w:26, align:'right'},
-      {label:'To Be Completed', w:30, align:'right'},
-      {label:'Over Budget',     w:30, align:'right'},
-      {label:'Change Orders',   w:29, align:'right'}
-    ];
+    // Use the schema from data.json so PDF matches what admin configured
+    var _pdfSchemaCols=getClientCols(D);
+    var _pdfVisCols=_pdfSchemaCols.filter(function(c){return c.visible!==false;});
+    // Distribute width: label col gets more space, numeric cols share the rest
+    var _numColCount=_pdfVisCols.filter(function(c){return c.key!=='label';}).length;
+    var _labelW=Math.max(50,usableW-(_numColCount*27));
+    var _numW=_numColCount>0?Math.floor((usableW-_labelW)/_numColCount):27;
+    cols=_pdfVisCols.map(function(c){
+      return{label:c.label,w:c.key==='label'?_labelW:_numW,align:c.key==='label'?'left':'right',_key:c.key};
+    });
   } else if(_activeTab==='timesheet'){
     cols=[
       {label:'Date',         w:40,  align:'left'},
@@ -657,48 +659,37 @@ function exportPDF(expanded,tab){
     var cb=D.costBreakdown||{};
     var cats=cb.categories||[];
     var tots=cb.totals||[];
+    // Get the PDF schema columns (already computed above as cols)
+    var _pdfCols=cols.filter(function(c){return c._key&&c._key!=='label';});
+    function cellForKey(key,item){
+      var v=item[key]||0;
+      if(key==='ob')return{text:v<0?fCabs(v):'—',color:v<0?'#ef4444':TEXT_MID};
+      if(key==='co')return{text:v>0?fC(v):'—',color:v>0?AMBER:TEXT_MID};
+      if(key==='tbc')return{text:fC(v),color:v>0?GREEN:v<0?'#ef4444':TEXT_DARK};
+      if(key==='budget')return{text:fC(v)};
+      return{text:fC(v),color:BLUE};
+    }
 
     cats.forEach(function(cat){
       var sub=cat.subtotal||{};
       var group=[];
 
-      // FIX #7: collapsed cat rows show actual OB/CO values, not '—'
       group.push({isCat:true,cells:[
-        {text:cat.label},
-        {text:expanded?'':fC(sub.budget)},
-        {text:expanded?'':fC(sub.prevInv),color:BLUE},
-        {text:expanded?'':fC(sub.curInv),color:BLUE},
-        {text:expanded?'':fC(sub.totInv),color:BLUE},
-        {text:expanded?'':fC(sub.tbc),color:(sub.tbc>0?GREEN:sub.tbc<0?'#ef4444':TEXT_DARK)},
-        {text:expanded?'':(sub.ob<0?fCabs(sub.ob):'—'),color:sub.ob<0?'#ef4444':TEXT_MID},
-        {text:expanded?'':(sub.co>0?fC(sub.co):'—'),color:sub.co>0?AMBER:TEXT_MID}
-      ]});
+        {text:cat.label}
+      ].concat(_pdfCols.map(function(col){
+        var v=sub[col._key]||0;
+        return expanded?{text:''}:cellForKey(col._key,sub);
+      }))});
 
       if(expanded){
         cat.items.forEach(function(item){
           group.push({isDetail:true,cells:[
-            {text:item.label},
-            {text:fC(item.budget)},
-            {text:fC(item.prevInv),color:BLUE},
-            {text:fC(item.curInv),color:BLUE},
-            {text:fC(item.totInv),color:BLUE},
-            {text:fC(item.tbc),color:(item.tbc>0?GREEN:item.tbc<0?'#ef4444':TEXT_DARK)},
-            // FIX #6/#12: use fCabs for over-budget column everywhere
-            {text:item.ob<0?fCabs(item.ob):'—',color:item.ob<0?'#ef4444':TEXT_MID},
-            {text:item.co>0?fC(item.co):'—',color:item.co>0?AMBER:TEXT_MID}
-          ]});
+            {text:item.label}
+          ].concat(_pdfCols.map(function(col){return cellForKey(col._key,item);}))});
         });
         group.push({isSub:true,cells:[
-          {text:'Subtotal — '+cat.label},
-          {text:fC(sub.budget)},
-          {text:fC(sub.prevInv)},
-          {text:fC(sub.curInv)},
-          {text:fC(sub.totInv)},
-          {text:fC(sub.tbc)},
-          // FIX #6: subtotal OB uses fCabs (absolute value), consistent with detail rows
-          {text:sub.ob<0?fCabs(sub.ob):'—'},
-          {text:sub.co>0?fC(sub.co):'—'}
-        ]});
+          {text:'Subtotal — '+cat.label}
+        ].concat(_pdfCols.map(function(col){return{text:fC(sub[col._key]||0)};}))});
       }
 
       rows.push(group);
@@ -707,15 +698,8 @@ function exportPDF(expanded,tab){
     tots.forEach(function(t){
       var isMarkup=(t.label!=='Project Subtotal'&&t.label!=='PROJECT TOTAL');
       rows.push([{isTotal:!isMarkup,isMarkup:isMarkup,cells:[
-        {text:t.label},
-        {text:fC(t.budget)},
-        {text:fC(t.prevInv)},
-        {text:fC(t.curInv)},
-        {text:fC(t.totInv)},
-        {text:fC(t.tbc)},
-        {text:t.ob<0?fCabs(t.ob):'—'},
-        {text:t.co>0?fC(t.co):'—'}
-      ]}]);
+        {text:t.label}
+      ].concat(_pdfCols.map(function(col){return{text:fC(t[col._key]||0)};}))}]);
     });
 
     return rows;
@@ -910,6 +894,23 @@ function renderAll(data){
 }
 
 // ── COST BREAKDOWN ──
+// Default column definitions (used when no schema in data.json)
+var DEFAULT_CLIENT_COLS=[
+  {key:'label',   label:'Category',          visible:true},
+  {key:'budget',  label:'Budget',            visible:true},
+  {key:'prevInv', label:'Prev. Invoiced',    visible:true},
+  {key:'curInv',  label:'Current Invoice',   visible:true},
+  {key:'totInv',  label:'Total Invoiced',    visible:true},
+  {key:'tbc',     label:'To Be Completed',   visible:true},
+  {key:'ob',      label:'Over Budget',       visible:true},
+  {key:'co',      label:'Change Orders',     visible:true}
+];
+function getClientCols(D){
+  var schema=D&&D._schema&&D._schema.costBreakdown&&D._schema.costBreakdown.columns;
+  if(!schema||!schema.length)return DEFAULT_CLIENT_COLS;
+  return schema.filter(function(c){return c.visible!==false;});
+}
+
 function renderCost(cb){
   var cats=cb.categories||[];
   var tots=cb.totals||[];
@@ -917,6 +918,12 @@ function renderCost(cb){
     $('tab-cost').innerHTML='<div class="no-data"><div class="no-data-icon">📊</div><div class="no-data-title">No cost breakdown data</div></div>';
     return;
   }
+  // Get schema columns from loaded data
+  var cols=getClientCols(D);
+  var visCols=cols.filter(function(c){return c.key!=='label'&&c.visible!==false;});
+  function schLbl(key){var c=cols.find(function(x){return x.key===key;});return c?c.label:key;}
+  function hasCol(key){return!!cols.find(function(c){return c.key===key&&c.visible!==false;});}
+
   var projTotal=tots.find(function(t){return t.label==='PROJECT TOTAL'})||{};
   var budget=projTotal.budget||0;
   var totInv=projTotal.totInv||0;
@@ -929,15 +936,49 @@ function renderCost(cb){
   var html='<div class="budget-card">'
     +'<div class="budget-label">Budget Progress</div>'
     +'<div class="budget-kpis">'
-    +'<div class="bkpi blue"><div class="bkpi-label">Invoiced</div><div class="bkpi-val">'+fC(totInv)+'</div><div class="bkpi-sub">'+pctInv.toFixed(1)+'% of budget</div><div class="bkpi-bar"><div class="bkpi-bar-fill" style="width:'+pctInv+'%;background:#1e6fd9"></div></div></div>'
-    +'<div class="bkpi green"><div class="bkpi-label">Remaining</div><div class="bkpi-val">'+fC(tbc)+'</div><div class="bkpi-sub">'+pctRem.toFixed(1)+'% of budget</div><div class="bkpi-bar"><div class="bkpi-bar-fill" style="width:'+pctRem+'%;background:#15803d"></div></div></div>'
-    +'<div class="bkpi gold"><div class="bkpi-label">Change Orders</div><div class="bkpi-val">'+fC(co)+'</div><div class="bkpi-sub">approved</div><div class="bkpi-bar"><div class="bkpi-bar-fill" style="width:'+Math.max(pctCo,.3)+'%;background:#c9970a;min-width:4px"></div></div></div>'
+    +(hasCol('totInv')?'<div class="bkpi blue"><div class="bkpi-label">'+schLbl('totInv')+'</div><div class="bkpi-val">'+fC(totInv)+'</div><div class="bkpi-sub">'+pctInv.toFixed(1)+'% of budget</div><div class="bkpi-bar"><div class="bkpi-bar-fill" style="width:'+pctInv+'%;background:#1e6fd9"></div></div></div>':'')
+    +(hasCol('tbc')?'<div class="bkpi green"><div class="bkpi-label">'+schLbl('tbc')+'</div><div class="bkpi-val">'+fC(tbc)+'</div><div class="bkpi-sub">'+pctRem.toFixed(1)+'% of budget</div><div class="bkpi-bar"><div class="bkpi-bar-fill" style="width:'+pctRem+'%;background:#15803d"></div></div></div>':'')
+    +(hasCol('co')?'<div class="bkpi gold"><div class="bkpi-label">'+schLbl('co')+'</div><div class="bkpi-val">'+fC(co)+'</div><div class="bkpi-sub">approved</div><div class="bkpi-bar"><div class="bkpi-bar-fill" style="width:'+Math.max(pctCo,.3)+'%;background:#c9970a;min-width:4px"></div></div></div>':'')
     +'</div>'
     +'<div class="budget-divider"></div>'
-    +'<div class="pbar-row"><span class="pbar-label" style="color:#1e4d8c">Invoiced</span><div class="pbar-track" style="background:#dbeafe"><div class="pbar-fill" style="width:'+pctInv+'%;background:#1e6fd9"></div></div><span class="pbar-pct" style="color:#1e6fd9">'+pctInv.toFixed(1)+'%</span></div>'
-    +'<div class="pbar-row"><span class="pbar-label" style="color:#14532d">Remaining</span><div class="pbar-track" style="background:rgba(0,0,0,.06)"><div class="pbar-fill" style="width:'+pctRem+'%;background:#15803d"></div></div><span class="pbar-pct" style="color:#15803d">'+pctRem.toFixed(1)+'%</span></div>'
-    +'<div class="pbar-row"><span class="pbar-label" style="color:#78350f">Change Orders</span><div class="pbar-track" style="background:rgba(0,0,0,.06)"><div class="pbar-fill" style="width:'+Math.max(pctCo,.3)+'%;background:#c9970a;min-width:8px"></div></div><span class="pbar-pct" style="color:#c9970a">'+pctCo.toFixed(1)+'%</span></div>'
+    +(hasCol('totInv')?'<div class="pbar-row"><span class="pbar-label" style="color:#1e4d8c">'+schLbl('totInv')+'</span><div class="pbar-track" style="background:#dbeafe"><div class="pbar-fill" style="width:'+pctInv+'%;background:#1e6fd9"></div></div><span class="pbar-pct" style="color:#1e6fd9">'+pctInv.toFixed(1)+'%</span></div>':'')
+    +(hasCol('tbc')?'<div class="pbar-row"><span class="pbar-label" style="color:#14532d">'+schLbl('tbc')+'</span><div class="pbar-track" style="background:rgba(0,0,0,.06)"><div class="pbar-fill" style="width:'+pctRem+'%;background:#15803d"></div></div><span class="pbar-pct" style="color:#15803d">'+pctRem.toFixed(1)+'%</span></div>':'')
+    +(hasCol('co')?'<div class="pbar-row"><span class="pbar-label" style="color:#78350f">'+schLbl('co')+'</span><div class="pbar-track" style="background:rgba(0,0,0,.06)"><div class="pbar-fill" style="width:'+Math.max(pctCo,.3)+'%;background:#c9970a;min-width:8px"></div></div><span class="pbar-pct" style="color:#c9970a">'+pctCo.toFixed(1)+'%</span></div>':'')
     +'</div>';
+
+  // Table column header helper
+  function th(col){return'<th'+(col.key==='label'?'':' class="r"')+'>'+col.label+'</th>';}
+  // Table data cell helpers
+  function tdCat(col,sub){
+    var v=sub[col.key]||0;
+    if(col.key==='ob')return'<td class="num">'+(v<0?'<span class="over-tag">'+fCabs(v)+'</span>':'—')+'</td>';
+    if(col.key==='co')return'<td class="num">'+(v>0?'<span class="co-tag">'+fC(v)+'</span>':'—')+'</td>';
+    if(col.key==='tbc')return'<td class="num '+(v>0?'green':v<0?'red':'')+'">'+fC(v)+'</td>';
+    if(col.key==='budget')return'<td class="num bud">'+fC(v)+'</td>';return'<td class="num blue">'+fC(v)+'</td>';
+  }
+  function tdDetail(col,item){
+    var v=item[col.key]||0;
+    if(col.key==='ob')return'<td class="num">'+(v<0?'<span class="over-tag">'+fCabs(v)+'</span>':'—')+'</td>';
+    if(col.key==='co')return'<td class="num">'+(v>0?'<span class="co-tag">'+fC(v)+'</span>':'—')+'</td>';
+    if(col.key==='tbc')return'<td class="num '+(v>0?'green':v<0?'red':'')+'">'+fC(v)+'</td>';
+    if(col.key==='budget')return'<td class="num bud">'+fC(v)+'</td>';return'<td class="num blue">'+fC(v)+'</td>';
+  }
+  function tdSub(col,sub){
+    var v=sub[col.key]||0;
+    if(col.key==='ob')return'<td class="num '+(v<0?'red':'')+'">'+( v<0?fCabs(v):'—')+'</td>';
+    if(col.key==='co')return'<td class="num '+(v>0?'gold':'')+'">'+( v>0?fC(v):'—')+'</td>';
+    if(col.key==='tbc')return'<td class="num '+(v>0?'green':v<0?'red':'')+'">'+fC(v)+'</td>';
+if(col.key==='budget')return'<td class="num bud">'+fC(v)+'</td>';    return'<td class="num blue">'+fC(v)+'</td>';
+  }
+  function tdTotal(col,t,bold){
+    var v=t[col.key]||0;
+    var wrap=bold?function(s){return'<strong>'+s+'</strong>';}:function(s){return s;};
+    if(col.key==='ob')return'<td class="num '+(v<0?'red':'')+'">'+wrap(v<0?fCabs(v):'—')+'</td>';
+    if(col.key==='co')return'<td class="num '+(v>0?'gold':'')+'">'+wrap(v>0?fC(v):'—')+'</td>';
+    if(col.key==='tbc')return'<td class="num '+(v>0?'green':v<0?'red':'')+'">'+wrap(fC(v))+'</td>';
+    if(col.key==='budget')return'<td class="num bud">'+wrap(fC(v))+'</td>';
+    return'<td class="num blue">'+wrap(fC(v))+'</td>';
+  }
 
   html+='<div class="sec-card">'
     +'<div class="sec-head"><div><h2>Cost Breakdown by Category</h2><p>Click any row to expand</p></div>'
@@ -951,58 +992,38 @@ function renderCost(cb){
     +'</div>'
     +'<div class="sh-toolbar"><div class="sh-btn-group"><button onclick="shExpandAll(\'cost\')">&#9660; Expand All</button><button onclick="shCollapseAll(\'cost\')">&#9650; Collapse All</button></div></div>'
     +'<div class="tbl-wrap"><table class="tbl-cost">'
-    +'<thead><tr><th>Category</th><th class="r">Budget</th><th class="r">Prev. Invoiced</th><th class="r">Current Invoice</th><th class="r">Total Invoiced</th><th class="r">To Be Completed</th><th class="r">Over Budget</th><th class="r">Change Orders</th></tr></thead>'
+    +'<thead><tr>'
+    +cols.map(function(c){return th(c);}).join('')
+    +'</tr></thead>'
     +'<tbody>';
 
   cats.forEach(function(cat,ci){
     var id='cat'+ci;
     var sub=cat.subtotal||{};
-    var subOb=sub.ob||0;
-    var subCo=sub.co||0;
     html+='<tr class="cat-row" id="cost-cat-'+id+'" onclick="toggleGroup(\''+id+'\',\'cost\')">'
       +'<td><button class="exp-btn" id="exp-'+id+'">▶</button>'+cat.label+'</td>'
-      +'<td class="num">'+fC(sub.budget)+'</td>'
-      +'<td class="num blue">'+fC(sub.prevInv)+'</td>'
-      +'<td class="num blue">'+fC(sub.curInv)+'</td>'
-      +'<td class="num blue">'+fC(sub.totInv)+'</td>'
-      +'<td class="num '+(sub.tbc>0?'green':sub.tbc<0?'red':'')+'">'+fC(sub.tbc)+'</td>'
-      +'<td class="num">'+(subOb<0?'<span class="over-tag">'+fCabs(subOb)+'</span>':'—')+'</td>'
-      +'<td class="num">'+(subCo>0?'<span class="co-tag">'+fC(subCo)+'</span>':'—')+'</td>'
+      +visCols.map(function(col){return tdCat(col,sub);}).join('')
       +'</tr>';
     cat.items.forEach(function(item){
       var rowCls='detail-row'+(item.type==='co'?' co-row':item.ob<0?' over-row':'');
       html+='<tr class="'+rowCls+'" data-group="'+id+'">'
         +'<td>'+item.label+'</td>'
-        +'<td class="num">'+fC(item.budget)+'</td>'
-        +'<td class="num blue">'+fC(item.prevInv)+'</td>'
-        +'<td class="num blue">'+fC(item.curInv)+'</td>'
-        +'<td class="num blue">'+fC(item.totInv)+'</td>'
-        +'<td class="num '+(item.tbc>0?'green':item.tbc<0?'red':'')+'">'+fC(item.tbc)+'</td>'
-        // FIX #6/#12: use fCabs for over-budget column in HTML too
-        +'<td class="num">'+(item.ob<0?'<span class="over-tag">'+fCabs(item.ob)+'</span>':'—')+'</td>'
-        +'<td class="num">'+(item.co>0?'<span class="co-tag">'+fC(item.co)+'</span>':'—')+'</td>'
+        +visCols.map(function(col){return tdDetail(col,item);}).join('')
         +'</tr>';
     });
-    // FIX #6: sub-row OB uses fCabs
     html+='<tr class="sub-row" id="cost-sub-'+id+'" data-group="'+id+'">'
       +'<td>Subtotal — '+cat.label+'</td>'
-      +'<td class="num bud">'+fC(sub.budget)+'</td>'
-      +'<td class="num blue">'+fC(sub.prevInv)+'</td>'
-      +'<td class="num blue">'+fC(sub.curInv)+'</td>'
-      +'<td class="num blue">'+fC(sub.totInv)+'</td>'
-      +'<td class="num '+(sub.tbc>0?'green':sub.tbc<0?'red':'')+'">'+fC(sub.tbc)+'</td>'
-      +'<td class="num '+(subOb<0?'red':'')+'">'+( subOb<0?fCabs(subOb):'—')+'</td>'
-      +'<td class="num '+(subCo>0?'gold':'')+'">'+( subCo>0?fC(sub.co):'—')+'</td>'
+      +visCols.map(function(col){return tdSub(col,sub);}).join('')
       +'</tr>';
   });
 
   tots.forEach(function(t){
     if(t.label==='Project Subtotal'){
-      html+='<tr class="totals-row"><td>'+t.label+'</td><td class="num bud">'+fC(t.budget)+'</td><td class="num blue">'+fC(t.prevInv)+'</td><td class="num blue">'+fC(t.curInv)+'</td><td class="num blue">'+fC(t.totInv)+'</td><td class="num '+(t.tbc>0?'green':t.tbc<0?'red':'')+'">'+fC(t.tbc)+'</td><td class="num '+(t.ob<0?'red':'')+'">'+( t.ob<0?fCabs(t.ob):'—')+'</td><td class="num '+(t.co>0?'gold':'')+'">'+( t.co>0?fC(t.co):'—')+'</td></tr>';
+      html+='<tr class="totals-row"><td>'+t.label+'</td>'+visCols.map(function(col){return tdTotal(col,t,false);}).join('')+'</tr>';
     } else if(t.label==='PROJECT TOTAL'){
-      html+='<tr class="totals-row"><td><strong>'+t.label+'</strong></td><td class="num bud"><strong>'+fC(t.budget)+'</strong></td><td class="num blue"><strong>'+fC(t.prevInv)+'</strong></td><td class="num blue"><strong>'+fC(t.curInv)+'</strong></td><td class="num blue"><strong>'+fC(t.totInv)+'</strong></td><td class="num '+(t.tbc>0?'green':t.tbc<0?'red':'')+'"><strong>'+fC(t.tbc)+'</strong></td><td class="num '+(t.ob<0?'red':'')+'"><strong>'+( t.ob<0?fCabs(t.ob):'—')+'</strong></td><td class="num '+(t.co>0?'gold':'')+'"><strong>'+( t.co>0?fC(t.co):'—')+'</strong></td></tr>';
+      html+='<tr class="totals-row"><td><strong>'+t.label+'</strong></td>'+visCols.map(function(col){return tdTotal(col,t,true);}).join('')+'</tr>';
     } else {
-      html+='<tr class="markup-row"><td style="padding-left:20px">'+t.label+'</td><td class="num">'+fC(t.budget)+'</td><td class="num">'+fC(t.prevInv)+'</td><td class="num">'+fC(t.curInv)+'</td><td class="num">'+fC(t.totInv)+'</td><td class="num '+(t.tbc>0?'green':t.tbc<0?'red':'')+'">'+fC(t.tbc)+'</td><td class="num '+(t.ob<0?'red':'')+'">'+( t.ob<0?fCabs(t.ob):'—')+'</td><td class="num '+(t.co>0?'gold':'')+'">'+( t.co>0?fC(t.co):'—')+'</td></tr>';
+      html+='<tr class="markup-row"><td style="padding-left:20px">'+t.label+'</td>'+visCols.map(function(col){return'<td class="num">'+fC(t[col.key]||0)+'</td>';}).join('')+'</tr>';
     }
   });
 
