@@ -5,8 +5,8 @@
   "clientPhone": "",
   "projectAddress": "",
   "projectManager": "A. McMann",
-  "reportLabel": "January 1, 2026 – May 31, 2026",
-  "updated": "June 16, 2026",
+  "reportLabel": "November 1, 2025 – May 31, 2026",
+  "updated": "June 22, 2026",
   "costBreakdown": {
     "categories": [
       {
@@ -25,7 +25,7 @@
           }
         ],
         "subtotal": {
-          "label": "DESIGN SERVICES — Subtotal",
+          "label": "DESIGN SERVICES â Subtotal",
           "budget": 1000,
           "prevInv": 0,
           "curInv": 0,
@@ -84,7 +84,7 @@
           }
         ],
         "subtotal": {
-          "label": "PERMITS & HOME WARRANTY — Subtotal",
+          "label": "PERMITS & HOME WARRANTY â Subtotal",
           "budget": 31040,
           "prevInv": 0,
           "curInv": 0,
@@ -154,7 +154,7 @@
           }
         ],
         "subtotal": {
-          "label": "ENGINEERING FEES — Subtotal",
+          "label": "ENGINEERING FEES â Subtotal",
           "budget": 23500,
           "prevInv": 0,
           "curInv": 0,
@@ -223,7 +223,7 @@
             "co": 0
           },
           {
-            "label": "Slab Prep – Labour",
+            "label": "Slab Prep â Labour",
             "type": "detail",
             "budget": 1200,
             "prevInv": 0,
@@ -234,7 +234,7 @@
             "co": 0
           },
           {
-            "label": "Slab Prep – Material",
+            "label": "Slab Prep â Material",
             "type": "detail",
             "budget": 1104.45,
             "prevInv": 0,
@@ -256,7 +256,7 @@
             "co": 0
           },
           {
-            "label": "Concrete Slab – Skim Coat",
+            "label": "Concrete Slab â Skim Coat",
             "type": "detail",
             "budget": 6848,
             "prevInv": 0,
@@ -301,7 +301,7 @@
           }
         ],
         "subtotal": {
-          "label": "FOUNDATION — Subtotal",
+          "label": "FOUNDATION â Subtotal",
           "budget": 139456.84999999998,
           "prevInv": 0,
           "curInv": 0,
@@ -426,7 +426,7 @@
           }
         ],
         "subtotal": {
-          "label": "FRAMING — Subtotal",
+          "label": "FRAMING â Subtotal",
           "budget": 233053.83000000002,
           "prevInv": 0,
           "curInv": 0,
@@ -518,7 +518,7 @@
           }
         ],
         "subtotal": {
-          "label": "WINDOWS & DOORS — Subtotal",
+          "label": "WINDOWS & DOORS â Subtotal",
           "budget": 89660.68000000001,
           "prevInv": 0,
           "curInv": 0,
@@ -588,7 +588,7 @@
           }
         ],
         "subtotal": {
-          "label": "ELECTRICAL — Subtotal",
+          "label": "ELECTRICAL â Subtotal",
           "budget": 88145,
           "prevInv": 0,
           "curInv": 0,
@@ -636,7 +636,7 @@
           }
         ],
         "subtotal": {
-          "label": "PLUMBING — Subtotal",
+          "label": "PLUMBING â Subtotal",
           "budget": 60340,
           "prevInv": 0,
           "curInv": 0,
@@ -706,7 +706,7 @@
           }
         ],
         "subtotal": {
-          "label": "HVAC — Subtotal",
+          "label": "HVAC â Subtotal",
           "budget": 61616,
           "prevInv": 0,
           "curInv": 0,
@@ -732,7 +732,7 @@
           }
         ],
         "subtotal": {
-          "label": "ROOFING — Subtotal",
+          "label": "ROOFING â Subtotal",
           "budget": 49900,
           "prevInv": 0,
           "curInv": 0,
@@ -769,7 +769,7 @@
           }
         ],
         "subtotal": {
-          "label": "INSULATION & DRYWALL — Subtotal",
+          "label": "INSULATION & DRYWALL â Subtotal",
           "budget": 86020,
           "prevInv": 0,
           "curInv": 0,
@@ -850,7 +850,7 @@
           }
         ],
         "subtotal": {
-          "label": "EXTERIOR VENEER — Subtotal",
+          "label": "EXTERIOR VENEER â Subtotal",
           "budget": 70795.18,
           "prevInv": 0,
           "curInv": 0,
@@ -864,7 +864,7 @@
         "label": "MASONRY",
         "items": [
           {
-            "label": "Exterior Masonry – Supply & Install",
+            "label": "Exterior Masonry â Supply & Install",
             "type": "detail",
             "budget": 40250,
             "prevInv": 0,
@@ -875,7 +875,7 @@
             "co": 0
           },
           {
-            "label": "Interior Masonry – Supply & Install – Fireplace Inside",
+            "label": "Interior Masonry â Supply & Install â Fireplace Inside",
             "type": "detail",
             "budget": 10430,
             "prevInv": 0,
@@ -886,7 +886,7 @@
             "co": 0
           },
           {
-            "label": "Interior Masonry – Supply & Install – Fireplace Outside",
+            "label": "Interior Masonry â Supply & Install â Fireplace Outside",
             "type": "detail",
             "budget": 16150,
             "prevInv": 0,
@@ -898,7 +898,7 @@
           }
         ],
         "subtotal": {
-          "label": "MASONRY — Subtotal",
+          "label": "MASONRY â Subtotal",
           "budget": 66830,
           "prevInv": 0,
           "curInv": 0,
@@ -912,7 +912,7 @@
         "label": "CABINETRY & COUNTERTOPS",
         "items": [
           {
-            "label": "Cabinetry Supply & Install – Main and Suite",
+            "label": "Cabinetry Supply & Install â Main and Suite",
             "type": "detail",
             "budget": 106330,
             "prevInv": 0,
@@ -935,7 +935,7 @@
           }
         ],
         "subtotal": {
-          "label": "CABINETRY & COUNTERTOPS — Subtotal",
+          "label": "CABINETRY & COUNTERTOPS â Subtotal",
           "budget": 137510,
           "prevInv": 0,
           "curInv": 0,
@@ -1049,7 +1049,7 @@
           }
         ],
         "subtotal": {
-          "label": "INTERIOR FINISHING — Subtotal",
+          "label": "INTERIOR FINISHING â Subtotal",
           "budget": 66541.55,
           "prevInv": 0,
           "curInv": 0,
@@ -1130,7 +1130,7 @@
           }
         ],
         "subtotal": {
-          "label": "WOOD FLOOR COVERINGS — Subtotal",
+          "label": "WOOD FLOOR COVERINGS â Subtotal",
           "budget": 43064.159999999996,
           "prevInv": 0,
           "curInv": 0,
@@ -1167,7 +1167,7 @@
           }
         ],
         "subtotal": {
-          "label": "TILE — Subtotal",
+          "label": "TILE â Subtotal",
           "budget": 45550.46,
           "prevInv": 0,
           "curInv": 0,
@@ -1237,7 +1237,7 @@
           }
         ],
         "subtotal": {
-          "label": "PAINT — Subtotal",
+          "label": "PAINT â Subtotal",
           "budget": 57520,
           "prevInv": 0,
           "curInv": 0,
@@ -1251,7 +1251,7 @@
         "label": "EXTERIOR HARDSCAPE",
         "items": [
           {
-            "label": "Patio / Drives / Walkways – Concrete & Material",
+            "label": "Patio / Drives / Walkways â Concrete & Material",
             "type": "detail",
             "budget": 24824,
             "prevInv": 0,
@@ -1262,7 +1262,7 @@
             "co": 0
           },
           {
-            "label": "Patio / Drives / Walkways – Forming Labour",
+            "label": "Patio / Drives / Walkways â Forming Labour",
             "type": "detail",
             "budget": 2400,
             "prevInv": 0,
@@ -1273,7 +1273,7 @@
             "co": 0
           },
           {
-            "label": "Patio / Drives / Walkways – Finishing Labour",
+            "label": "Patio / Drives / Walkways â Finishing Labour",
             "type": "detail",
             "budget": 12083.5,
             "prevInv": 0,
@@ -1285,7 +1285,7 @@
           }
         ],
         "subtotal": {
-          "label": "EXTERIOR HARDSCAPE — Subtotal",
+          "label": "EXTERIOR HARDSCAPE â Subtotal",
           "budget": 39307.5,
           "prevInv": 0,
           "curInv": 0,
@@ -1344,7 +1344,7 @@
           }
         ],
         "subtotal": {
-          "label": "CONSTRUCTION CLEAN UP — Subtotal",
+          "label": "CONSTRUCTION CLEAN UP â Subtotal",
           "budget": 15200,
           "prevInv": 0,
           "curInv": 0,
@@ -1403,7 +1403,7 @@
           }
         ],
         "subtotal": {
-          "label": "JOBSITE FACILITIES — Subtotal",
+          "label": "JOBSITE FACILITIES â Subtotal",
           "budget": 10000,
           "prevInv": 0,
           "curInv": 0,
@@ -1440,7 +1440,7 @@
           }
         ],
         "subtotal": {
-          "label": "PROJECT MANAGEMENT — Subtotal",
+          "label": "PROJECT MANAGEMENT â Subtotal",
           "budget": 53120,
           "prevInv": 0,
           "curInv": 0,
@@ -1466,7 +1466,7 @@
           }
         ],
         "subtotal": {
-          "label": "MISCELLANEOUS — Subtotal",
+          "label": "MISCELLANEOUS â Subtotal",
           "budget": 25000,
           "prevInv": 0,
           "curInv": 0,
@@ -1492,7 +1492,7 @@
           }
         ],
         "subtotal": {
-          "label": "COMPANY OVERHEAD — Subtotal",
+          "label": "COMPANY OVERHEAD â Subtotal",
           "budget": 13596.0648,
           "prevInv": 0,
           "curInv": 0,
@@ -2076,10 +2076,10 @@
   },
   "_meta": {
     "report": "April 2026",
-    "dateFrom": "2026-01-01",
+    "dateFrom": "2025-11-01",
     "dateTo": "2026-05-31",
     "jobId": "2565_east_wellington_road",
     "jobRepo": "dorman",
-    "syncedAt": "2026-06-17T00:36:03.794Z"
+    "syncedAt": "2026-06-22T23:58:25.350Z"
   }
 }
